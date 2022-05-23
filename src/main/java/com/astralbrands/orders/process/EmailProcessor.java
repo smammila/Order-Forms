@@ -46,10 +46,11 @@ public class EmailProcessor implements Processor, AppConstants {
 		String csvFileData = exchange.getProperty(CSV_DATA, String.class);
 		String iFile = exchange.getProperty("IFILE", String.class);
 		String brand = exchange.getProperty(SITE_NAME, String.class);
-		sendEmail(SUBJECT, csvFileData, iFile, brand);
+		String fileName = exchange.getProperty(INPUT_FILE_NAME, String.class);
+		sendEmail(SUBJECT, csvFileData, iFile, brand, fileName);
 	}
 
-	public void sendEmail(String subject, String csvFile, String iFile, String site) {
+	public void sendEmail(String subject, String csvFile, String iFile, String site, String fileName) {
 
 		log.info("sending .........");
 
@@ -97,11 +98,11 @@ public class EmailProcessor implements Processor, AppConstants {
 			Multipart multiPart = new MimeMultipart();
 			MimeBodyPart attachFilePart = new MimeBodyPart();
 			attachFilePart.setDataHandler(new DataHandler(new ByteArrayDataSource(csvFile.getBytes(), "text/csv")));
-			attachFilePart.setFileName("ALOUTTE_" + site + DOT_CSV);
+			attachFilePart.setFileName(fileName + DOT_CSV);
 
 			MimeBodyPart iFileBody = new MimeBodyPart();
 			iFileBody.setDataHandler(new DataHandler(new ByteArrayDataSource(iFile.getBytes(), "text/plain")));
-			iFileBody.setFileName("iFile_" + site + DOT_TXT);
+			iFileBody.setFileName(fileName+ DOT_TXT);
 			multiPart.addBodyPart(iFileBody);
 			multiPart.addBodyPart(attachFilePart);
 			multiPart.addBodyPart(msgBody);

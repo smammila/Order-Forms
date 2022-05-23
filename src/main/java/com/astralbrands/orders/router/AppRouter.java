@@ -31,7 +31,7 @@ public class AppRouter extends RouteBuilder {
 		onException(Exception.class).log("Exception while processing order detail, please check log for more details")
 				.end();
 		from("file:{{direct-deposit.input.file-path}}?delete=false&delay={{input.process.delay}}&moveFailed={{direct-deposit.error.file.path}}")
-				.id("inputRouter").log("Read CSV file ${exchange}").process(readXslxFileProcessor).choice().when()
+				.id("inputRouter").log("Read EXCEL file ${exchange}").process(readXslxFileProcessor).choice().when()
 				.exchangeProperty("isDataPresent").to("direct:exportFile").to("direct:preparedCsvFile").otherwise()
 				.log("file is already processed or empty").endChoice().end();
 		from("direct:preparedCsvFile").id("direct:preparedCsvFile").log("preparedCsvFile").process(csvFileProcessor)

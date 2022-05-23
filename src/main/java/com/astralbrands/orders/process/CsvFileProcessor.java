@@ -15,7 +15,7 @@ public class CsvFileProcessor implements Processor, AppConstants {
 		String csvFileData = exchange.getProperty(CSV_DATA, String.class);
 		String brand = exchange.getProperty(SITE_NAME, String.class);
 		exchange.getMessage().setBody(csvFileData);
-		exchange.getMessage().setHeader(Exchange.FILE_NAME, "ALOUTTE_" + brand + DOT_CSV);
+		exchange.getMessage().setHeader(Exchange.FILE_NAME, exchange.getProperty(INPUT_FILE_NAME) + DOT_CSV);
 	}
 
 }

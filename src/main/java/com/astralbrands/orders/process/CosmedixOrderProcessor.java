@@ -86,14 +86,13 @@ public class CosmedixOrderProcessor implements BrandOrderForms, AppConstants {
 				exchange.getMessage().setBody(data);
 				exchange.setProperty(CSV_DATA, data.replace(TILDE, COMMA));
 				exchange.setProperty("IFILE", data);
-				exchange.getMessage().setHeader(Exchange.FILE_NAME, "iFile_" + Site + DOT_TXT);
+				exchange.getMessage().setHeader(Exchange.FILE_NAME, exchange.getProperty(INPUT_FILE_NAME)+DOT_TXT);
 				exchange.setProperty(IS_DATA_PRESENT, true);
 				exchange.setProperty(SITE_NAME, Site);
 			} else {
 				exchange.setProperty(IS_DATA_PRESENT, false);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 			exchange.setProperty(IS_DATA_PRESENT, false);
 		}
 	}
@@ -191,8 +190,8 @@ public class CosmedixOrderProcessor implements BrandOrderForms, AppConstants {
 		header.add(EMPTY_STR);//Order number (blank)
 		header.add(fileNameData[0]);
 		header.add(fileNameData[1]);
-		header.add(customerRefNumber);
-		//header.add(fileNameData[1]);
+		//header.add(customerRefNumber);
+		header.add(fileNameData[1]);
 		header.add("COSCO");
 		header.add(US_CURR);
 

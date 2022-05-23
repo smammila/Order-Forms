@@ -11,10 +11,17 @@ public class BrandOrderFormsFactory {
 	
 	@Autowired
 	private CosmedixOrderProcessor cosmedixOrderProcessor;
+	
+	@Autowired
+	private CommerceHubProcessor commerceHubProcessor;
+	
 
 	public BrandOrderForms getBrandOrderForms(String site) {
-		if ("EXPO".equals(site)) {
+		if ("COS".equals(site)) {
 			return cosmedixOrderProcessor;
+		}
+		else if("HUB".equalsIgnoreCase(site)) {
+			return commerceHubProcessor;
 		}
 		return aloutteOrderProcessor;
 	}

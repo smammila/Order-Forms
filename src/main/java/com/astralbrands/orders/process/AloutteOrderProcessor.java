@@ -44,7 +44,7 @@ public class AloutteOrderProcessor implements BrandOrderForms, AppConstants {
 				exchange.getMessage().setBody(data);
 				exchange.setProperty(CSV_DATA, data.replace(TILDE, COMMA));
 				exchange.setProperty("IFILE", data);
-				exchange.getMessage().setHeader(Exchange.FILE_NAME, "iFile_" + site + DOT_TXT);
+				exchange.getMessage().setHeader(Exchange.FILE_NAME, exchange.getProperty(INPUT_FILE_NAME) + DOT_TXT);
 				exchange.setProperty(IS_DATA_PRESENT, true);
 				exchange.setProperty(SITE_NAME, site);
 			} else {

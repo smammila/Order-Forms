@@ -25,5 +25,6 @@ public interface AppConstants {
 	public final static String SITE_NAME = "SITE_NAME";
 	public final static String CSV_DATA = "CSV_DATA";
 	public final static String IS_DATA_PRESENT = "isDataPresent";
+	public final static String INPUT_FILE_NAME = "INPUT_FILE_NAME";
 
 }
